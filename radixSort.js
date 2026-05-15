@@ -37,6 +37,23 @@ function maxDigits(nums) {
 }
 
 
-let nums = [123, 4856, 789, 12, 34, 56, 7];
+function radixSort(nums) {
+  let maxDigitCount = maxDigits(nums);
 
-console.log(maxDigits(nums))
+  for (let k = 0; k < maxDigitCount; k++){
+    let buckets = Array.from({length: 10}, () => [])
+    
+    for (let j = 0; j < nums.length; j++){
+      let digit = getDigits(nums[j], k)
+
+      buckets[digit].push(nums[j])
+    }
+    nums = [].concat(...buckets)
+  }
+  return nums
+}
+
+
+let nums = [123, 4856, 789, 12, 34, 56, 7];
+console.log(radixSort(nums))
+// console.log(maxDigits(nums))

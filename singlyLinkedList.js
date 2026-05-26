@@ -121,39 +121,44 @@ class SinglyLinkedList {
     return true;
   }
 
-  remove(index){
-    if (index < 0 || index >= this.length){
-      return undefined
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
     }
 
-    if (index === 0){
-      this.shift()
-      return true
+    if (index === 0) {
+      this.shift();
+      return true;
     }
 
-    if (index === this.length - 1){
-      this.pop()
-      return true
+    if (index === this.length - 1) {
+      this.pop();
+      return true;
     }
 
-    let previousNode = this.get(index - 1)
-    let nextNodeOfPrevious = previousNode.next
-    let nextNextNode = nextNodeOfPrevious.next
+    let previousNode = this.get(index - 1);
+    let nextNodeOfPrevious = previousNode.next;
+    let nextNextNode = nextNodeOfPrevious.next;
 
-    previousNode.next = nextNextNode
-    this.length -= 1
-    return true
-
+    previousNode.next = nextNextNode;
+    this.length -= 1;
+    return true;
   }
 
-  reverse(){
-    let previousNode = this.head
-    let currentNode = previousNode.next
-    let nextNode = currentNode.next
+  reverse() {
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
 
-    while (nextNode.next){
-      currentNode.next = previousNode
-      previousNode.next = nextNode
+    let prev = null;
+    let next = null;
+
+    for (let i = 0; i < this.length; i++) {
+      next = node.next
+      node.next = prev
+
+      prev = node
+      node = next
     }
   }
 }
@@ -164,6 +169,12 @@ a.push(10);
 a.push(15);
 a.push(20);
 a.push(25);
+
+// [10, 15, 20, 25];
+
+
+
+
 // console.log(a)
 
 // console.log(a.pop());
@@ -175,7 +186,7 @@ a.push(25);
 // console.log(a.insert(1, 111));
 // console.log(a, { depth: null });
 // console.log(a.remove(3))
-console.log(a.reverse())
+console.log(a.reverse());
 console.dir(a, { depth: null });
 
 // {

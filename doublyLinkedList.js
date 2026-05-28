@@ -104,6 +104,69 @@ class DoublyLinkedList {
 
     return current;
   }
+
+  set(index, val) {
+    let node = this.get(index);
+
+    if (node) {
+      node.val = val;
+      return true;
+    }
+    return false;
+  }
+
+  insert(index, val) {
+    if (index < 0 || index > this.length) {
+      return false;
+    }
+
+    if (index === 0) {
+      this.unshift(val);
+      return true;
+    }
+
+    if (index === this.length) {
+      this.push(val);
+      return true;
+    }
+    let newNode = new Node(val);
+    let beforeNode = this.get(index - 1);
+    let afterNode = beforeNode.next;
+
+    newNode.prev = beforeNode;
+    beforeNode.next = newNode;
+    newNode.next = afterNode;
+    afterNode.prev = newNode;
+  }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    if (index === 0) {
+      this.shift();
+      return true;
+    }
+
+    if (index === this.length - 1) {
+      this.pop();
+      return true;
+    }
+
+    let poppedItem = this.get(index);
+
+    let poppedBefore = poppedItem.prev;
+    let poppedNext = poppedItem.next;
+
+    poppedBefore.next = poppedNext;
+    poppedNext.prev = poppedBefore;
+    this.length -= 1;
+
+    poppedItem.next = null;
+    poppedItem.prev = null;
+    return poppedItem;
+  }
 }
 
 let list = new DoublyLinkedList();
@@ -122,5 +185,9 @@ list.push(35);
 
 // console.log(list.shift())
 // console.log(list.unshift(30));
-console.log(list.get(2));
-// console.dir(list, { depth: null });
+// console.log(list.get(2));
+
+// console.log(list.set(0, 2232));
+// console.log(list.insert(3, 245));
+console.log(list.remove(3))
+console.dir(list, { depth: null });

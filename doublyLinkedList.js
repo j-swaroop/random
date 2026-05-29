@@ -156,7 +156,7 @@ class DoublyLinkedList {
 
     let poppedItem = this.get(index);
 
-    let poppedBefore = poppedItem.prev;
+    let poppedBefore = poppedItem.prev
     let poppedNext = poppedItem.next;
 
     poppedBefore.next = poppedNext;
